@@ -1,6 +1,4 @@
 package com.my_sokhra.selibrah.mysokhra;
 
-public class Commandes {
-    int i;
-
+public class CommandesAdapter {
 }

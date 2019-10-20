@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +20,7 @@ public class Main2Activity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null)
         {
-            Intent intent = new Intent(Main2Activity.this, Commandes.class);
+            Intent intent = new Intent(Main2Activity.this, Main.class);
             startActivity(intent);
             finish();
         }

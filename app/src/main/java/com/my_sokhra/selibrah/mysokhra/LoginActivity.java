@@ -9,11 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -120,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(LoginActivity.this, Commandes.class);
+                            Intent intent = new Intent(LoginActivity.this, Main.class);
                             startActivity(intent);
                             finish();
                         } else {
@@ -200,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent intent = new Intent(LoginActivity.this, Commandes.class);
+                    Intent intent = new Intent(LoginActivity.this, Main.class);
                     startActivity(intent);
                     finish();
                 }

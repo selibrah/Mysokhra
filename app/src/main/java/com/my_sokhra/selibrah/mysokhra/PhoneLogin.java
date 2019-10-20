@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,17 +12,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -57,7 +52,7 @@ public class PhoneLogin extends AppCompatActivity {
         findViewById(R.id.verif).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhoneLogin.this, Commandes.class);
+                Intent intent = new Intent(PhoneLogin.this, Main.class);
                 startActivity(intent);
             }
         });
@@ -156,7 +151,7 @@ public class PhoneLogin extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             FirebaseUser user = mAuth.getCurrentUser();
                             mDatabase.child(uid).child("num").setValue(user.getPhoneNumber());
-                            Intent intent = new Intent(PhoneLogin.this, Commandes.class);
+                            Intent intent = new Intent(PhoneLogin.this, Main.class);
                             startActivity(intent);
                             finish();
                           //  Toast.makeText(PhoneLogin.this,credential.getProvider(), Toast.LENGTH_SHORT).show();

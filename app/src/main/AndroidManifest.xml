@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PhoneLogin" />
-        <activity android:name=".Commandes" />
+        <activity android:name=".Main" />
         <activity android:name=".RestoLis" />
         <activity android:name=".CartList" />
         <activity
