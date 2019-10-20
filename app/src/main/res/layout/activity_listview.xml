@@ -33,7 +33,7 @@
                 android:id="@+id/restimg"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/comeneat" />
         </androidx.cardview.widget.CardView>
 

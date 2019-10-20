@@ -41,6 +41,7 @@ public class CartList extends AppCompatActivity {
     TextView totalprice;
     TextView x;
     TextView y;
+    static String Key;
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -67,17 +68,18 @@ public class CartList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
                 cartlist.clear();
+                total = 0;
                 for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
 
                     itemCart l = npsnapshot.getValue(itemCart.class);
                     total = total + Integer.valueOf(l.prix)*l.nbr;
+                    l.total = total;
                     cartlist.add(l);
                 }
                 jDatabase.child("total").setValue(total);
                 Carttotal.setText(String.valueOf(total)+" Dh");
                 totalprice.setText(String.valueOf(total + 10) + " Dh");
                 //Toast.makeText(getApplicationContext(), "Total "+total, Toast.LENGTH_SHORT).show();
-                total = 0;
                 adapter = new CartAdapter(cartlist);
                 recyclerView.setAdapter(adapter);
             }
@@ -90,10 +92,14 @@ public class CartList extends AppCompatActivity {
         findViewById(R.id.cmdbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 getlocation();
+                Key = uDatabase.child("cmd").push().getKey();
+                uDatabase.child("cmd").child(Key).setValue(cartlist);
+                uDatabase.child("cmd").child(Key).child("total").setValue(total);
+
             }
         });
+
 
     }
     public void getlocation()
@@ -108,6 +114,9 @@ public class CartList extends AppCompatActivity {
                             // Logic to handle location object
                             uDatabase.child("location").child("latitude").setValue(location.getLatitude());
                             uDatabase.child("location").child("longitude").setValue(location.getLongitude());
+                            uDatabase.child("cmd").child(Key).child("location").child("latitude").setValue(location.getLatitude());
+                            uDatabase.child("cmd").child(Key).child("location").child("longitude").setValue(location.getLongitude());
+
                         }
                     }
                 });

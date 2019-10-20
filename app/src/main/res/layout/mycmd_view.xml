@@ -33,7 +33,7 @@
                     app:cardCornerRadius="8dp">
 
                     <ImageView
-                        android:id="@+id/kindimg"
+                        android:id="@+id/commandesimg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
@@ -67,7 +67,7 @@
                         android:padding="10dp">
 
                         <TextView
-                            android:id="@+id/textView16"
+                            android:id="@+id/commandesname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/rubik"
@@ -77,7 +77,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/kindprice2"
+                            android:id="@+id/commandestotal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -89,7 +89,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/kindprice"
+                            android:id="@+id/commandestime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
