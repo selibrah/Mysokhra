@@ -1,2 +1,0 @@
-# Mysokhra
-Delivery app

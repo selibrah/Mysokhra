@@ -1,0 +1,115 @@
+package com.my_sokhra.selibrah.mysokhra;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CartList extends AppCompatActivity {
+    CartAdapter adapter;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private DatabaseReference jDatabase;
+    private DatabaseReference uDatabase;
+    RecyclerView recyclerView;
+    private int total;
+    TextView Carttotal;
+    TextView totalprice;
+    TextView x;
+    TextView y;
+    private FusedLocationProviderClient fusedLocationClient;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cart);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        Carttotal = (TextView) findViewById(R.id.carttt);
+        totalprice = (TextView) findViewById(R.id.total);
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        uDatabase = FirebaseDatabase.getInstance().getReference("usersData").child(user.getUid());
+        jDatabase = uDatabase.child("Cartitem");
+        mDatabase = jDatabase.child("items");
+
+
+        // set up the RecyclerView
+        final List<itemCart> cartlist = new ArrayList<>();
+        recyclerView = findViewById(R.id.recycleviecart);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
+                cartlist.clear();
+                for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
+
+                    itemCart l = npsnapshot.getValue(itemCart.class);
+                    total = total + Integer.valueOf(l.prix)*l.nbr;
+                    cartlist.add(l);
+                }
+                jDatabase.child("total").setValue(total);
+                Carttotal.setText(String.valueOf(total)+" Dh");
+                totalprice.setText(String.valueOf(total + 10) + " Dh");
+                //Toast.makeText(getApplicationContext(), "Total "+total, Toast.LENGTH_SHORT).show();
+                total = 0;
+                adapter = new CartAdapter(cartlist);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        findViewById(R.id.cmdbtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getlocation();
+            }
+        });
+
+    }
+    public void getlocation()
+    {
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        Toast.makeText(getApplicationContext(), "Done perfectly", Toast.LENGTH_SHORT).show();
+                        if (location != null) {
+                            // Logic to handle location object
+                            uDatabase.child("location").child("latitude").setValue(location.getLatitude());
+                            uDatabase.child("location").child("longitude").setValue(location.getLongitude());
+                        }
+                    }
+                });
+    }
+}
