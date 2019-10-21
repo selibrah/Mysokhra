@@ -27,7 +27,7 @@ public class CommandesAdapter extends RecyclerView.Adapter<CommandesAdapter.Comm
 
     @Override
     public CommandesAdapter.CommandesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.cmdlist,parent,false);
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.mycmd_view,parent,false);
         CommandesAdapter.CommandesHolder holder = new CommandesAdapter.CommandesHolder(row);
         return holder;
     }
@@ -59,7 +59,7 @@ public class CommandesAdapter extends RecyclerView.Adapter<CommandesAdapter.Comm
             commandesImg = (ImageView) itemView.findViewById(R.id.commandesimg);
             commandesname = (TextView) itemView.findViewById(R.id.commandesname);
             commandestotal = (TextView) itemView.findViewById(R.id.commandestotal);
-            commandestotal = (TextView) itemView.findViewById(R.id.commandestime);
+            commandestime = (TextView) itemView.findViewById(R.id.commandestime);
 
         }
     }

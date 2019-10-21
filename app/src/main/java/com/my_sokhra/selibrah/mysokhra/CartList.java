@@ -27,7 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CartList extends AppCompatActivity {
@@ -42,8 +44,6 @@ public class CartList extends AppCompatActivity {
     private int total;
     TextView Carttotal;
     TextView totalprice;
-    TextView x;
-    TextView y;
     static String Key;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -104,19 +104,24 @@ public class CartList extends AppCompatActivity {
         findViewById(R.id.cmdbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    getlocation();
-                    Key = uDatabase.child("cmd").push().getKey();
+                getlocation();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                Key = uDatabase.child("cmd").push().getKey();
                     uDatabase.child("cmd").child(Key).setValue(cartlist);
                     uDatabase.child("cmd").child(Key).child("total").setValue(total);
-                    gDatabase.child("Commades").child(Key).setValue(cartlist);
-                    gDatabase.child("Commades").child(Key).child("total").setValue(total);
+                    uDatabase.child("cmd").child(Key).child("name").setValue(formatter.format(date));
+                    uDatabase.child("cmd").child(Key).child("tmtdlvry").setValue("25");
+                    gDatabase.child("Commandes").child(Key).setValue(cartlist);
+                    gDatabase.child("Commandes").child(Key).child("total").setValue(total);
+                    gDatabase.child("Commandes").child(Key).child("name").setValue(formatter.format(date));
                     gDatabase.child(user.getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
 
                         DataSnapshot ds = dataSnapshot;
-                        gDatabase.child("Commades").child(Key).child("num").setValue(ds.child("num").getValue());
-                        gDatabase.child("Commades").child(Key).child("name").setValue(ds.child("name").getValue());
+                        gDatabase.child("Commandes").child(Key).child("num").setValue(ds.child("num").getValue());
+                        gDatabase.child("Commandes").child(Key).child("Clientname").setValue(ds.child("name").getValue());
                     }
 
 
@@ -126,6 +131,8 @@ public class CartList extends AppCompatActivity {
                     }
                 });
                 mDatabase.removeValue();
+                Intent intent = new Intent(CartList.this, AllCommands.class);
+                startActivity(intent);
 
 
 
@@ -148,8 +155,8 @@ public class CartList extends AppCompatActivity {
                             uDatabase.child("location").child("longitude").setValue(location.getLongitude());
                             uDatabase.child("cmd").child(Key).child("location").child("latitude").setValue(location.getLatitude());
                             uDatabase.child("cmd").child(Key).child("location").child("longitude").setValue(location.getLongitude());
-                            uDatabase.child("Commades").child(Key).child("location").child("latitude").setValue(location.getLatitude());
-                            uDatabase.child("Commades").child(Key).child("location").child("longitude").setValue(location.getLongitude());
+                            uDatabase.child("Commandes").child(Key).child("location").child("latitude").setValue(location.getLatitude());
+                            uDatabase.child("Commandes").child(Key).child("location").child("longitude").setValue(location.getLongitude());
 
                         }
                     }
