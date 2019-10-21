@@ -4,14 +4,14 @@ public class Commandes {
     String date;
     String hr;
     int total;
-    String tmtdlvry;
+    String ttodlv;
     String name;
 
-    public Commandes(String date, String hr, int total, String tmtdlvry, String name) {
+    public Commandes(String date, String hr, int total, String ttodlv, String name) {
         this.date = date;
         this.hr = hr;
         this.total = total;
-        this.tmtdlvry = tmtdlvry;
+        this.ttodlv = ttodlv;
         this.name = name;
     }
 
@@ -50,10 +50,10 @@ public class Commandes {
         this.total = total;
     }
 
-    public String getTmtdlvry() {
-        return tmtdlvry;
+    public String getTtodlv() {
+        return ttodlv;
     }
 
-    public void setTmtdlvry(String tmtdlvry) { tmtdlvry = tmtdlvry;
+    public void setTtodlv(String ttodlv) { this.ttodlv = ttodlv;
     }
 }

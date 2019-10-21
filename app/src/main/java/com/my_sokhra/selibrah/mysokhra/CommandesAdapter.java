@@ -39,7 +39,7 @@ public class CommandesAdapter extends RecyclerView.Adapter<CommandesAdapter.Comm
         holder.commandesImg.setImageResource(R.drawable.foo5);
         holder.commandesname.setText(commandesi.name);
         holder.commandestotal.setText(commandesi.total+" Dh");
-        holder.commandestime.setText(commandesi.tmtdlvry + " min");
+        holder.commandestime.setText(commandesi.ttodlv + " min");
 
     }
 

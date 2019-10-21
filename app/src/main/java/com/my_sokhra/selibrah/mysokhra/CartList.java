@@ -111,7 +111,7 @@ public class CartList extends AppCompatActivity {
                     uDatabase.child("cmd").child(Key).setValue(cartlist);
                     uDatabase.child("cmd").child(Key).child("total").setValue(total);
                     uDatabase.child("cmd").child(Key).child("name").setValue(formatter.format(date));
-                    uDatabase.child("cmd").child(Key).child("tmtdlvry").setValue("25");
+                    uDatabase.child("cmd").child(Key).child("ttodlv").setValue("25");
                     gDatabase.child("Commandes").child(Key).setValue(cartlist);
                     gDatabase.child("Commandes").child(Key).child("total").setValue(total);
                     gDatabase.child("Commandes").child(Key).child("name").setValue(formatter.format(date));
