@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="50 Dh"
+                    android:text="0 Dh"
                     android:textColor="#AA000000"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="10 Dh"
+                    android:text="0 Dh"
                     android:textColor="#AA000000"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="60dh"
+                    android:text="0dh"
                     android:textColor="#AA000000"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -195,7 +195,8 @@
             android:fontFamily="@font/rubik"
             android:text="Commander"
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

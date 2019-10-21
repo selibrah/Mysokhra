@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -35,6 +36,8 @@ public class CartList extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference jDatabase;
     private DatabaseReference uDatabase;
+    private DatabaseReference gDatabase;
+
     RecyclerView recyclerView;
     private int total;
     TextView Carttotal;
@@ -54,7 +57,8 @@ public class CartList extends AppCompatActivity {
         totalprice = (TextView) findViewById(R.id.total);
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
-        uDatabase = FirebaseDatabase.getInstance().getReference("usersData").child(user.getUid());
+        gDatabase = FirebaseDatabase.getInstance().getReference("usersData");
+        uDatabase = gDatabase.child(user.getUid());
         jDatabase = uDatabase.child("Cartitem");
         mDatabase = jDatabase.child("items");
 
@@ -80,6 +84,14 @@ public class CartList extends AppCompatActivity {
                 Carttotal.setText(String.valueOf(total)+" Dh");
                 totalprice.setText(String.valueOf(total + 10) + " Dh");
                 //Toast.makeText(getApplicationContext(), "Total "+total, Toast.LENGTH_SHORT).show();
+                if(total == 0)
+                {
+                    findViewById(R.id.cmdbtn).setVisibility(View.GONE);
+                }
+                else
+                {
+                    findViewById(R.id.cmdbtn).setVisibility(View.VISIBLE);
+                }
                 adapter = new CartAdapter(cartlist);
                 recyclerView.setAdapter(adapter);
             }
@@ -92,10 +104,30 @@ public class CartList extends AppCompatActivity {
         findViewById(R.id.cmdbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getlocation();
-                Key = uDatabase.child("cmd").push().getKey();
-                uDatabase.child("cmd").child(Key).setValue(cartlist);
-                uDatabase.child("cmd").child(Key).child("total").setValue(total);
+                    getlocation();
+                    Key = uDatabase.child("cmd").push().getKey();
+                    uDatabase.child("cmd").child(Key).setValue(cartlist);
+                    uDatabase.child("cmd").child(Key).child("total").setValue(total);
+                    gDatabase.child("Commades").child(Key).setValue(cartlist);
+                    gDatabase.child("Commades").child(Key).child("total").setValue(total);
+                    gDatabase.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                        DataSnapshot ds = dataSnapshot;
+                        gDatabase.child("Commades").child(Key).child("num").setValue(ds.child("num").getValue());
+                        gDatabase.child("Commades").child(Key).child("name").setValue(ds.child("name").getValue());
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                mDatabase.removeValue();
+
+
 
             }
         });
@@ -116,6 +148,8 @@ public class CartList extends AppCompatActivity {
                             uDatabase.child("location").child("longitude").setValue(location.getLongitude());
                             uDatabase.child("cmd").child(Key).child("location").child("latitude").setValue(location.getLatitude());
                             uDatabase.child("cmd").child(Key).child("location").child("longitude").setValue(location.getLongitude());
+                            uDatabase.child("Commades").child(Key).child("location").child("latitude").setValue(location.getLatitude());
+                            uDatabase.child("Commades").child(Key).child("location").child("longitude").setValue(location.getLongitude());
 
                         }
                     }
