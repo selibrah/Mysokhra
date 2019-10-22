@@ -20,6 +20,13 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commandes);
         mAuth = FirebaseAuth.getInstance();
+        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CartList.class);
+                startActivity(intent);
+            }
+        });
 
       //  Toast.makeText(Main.this,mAuth.getCurrentUser().getDisplayName() + mAuth.getCurrentUser().getPhoneNumber(), Toast.LENGTH_SHORT).show();
 

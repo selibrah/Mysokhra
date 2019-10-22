@@ -52,6 +52,7 @@ public class CartList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Carttotal = (TextView) findViewById(R.id.carttt);
         totalprice = (TextView) findViewById(R.id.total);

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +34,14 @@ public class Mycmd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycmd);
+        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CartList.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         Bundle extras = getIntent().getExtras();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         restoname = prefs.getString("Rname", "no id");

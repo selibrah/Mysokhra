@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -43,6 +44,14 @@ public class AllCommands extends AppCompatActivity {
         uDatabase = gDatabase.child(user.getUid());
         jDatabase = uDatabase.child("cmd");
         mDatabase = jDatabase.child("items");
+        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CartList.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         // set up the RecyclerView
@@ -57,8 +66,6 @@ public class AllCommands extends AppCompatActivity {
                 for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
 
                     Commandes l = npsnapshot.getValue(Commandes.class);
-                    Toast.makeText(getApplicationContext(), "AAAAA" + l.name, Toast.LENGTH_SHORT).show();
-
                     commandeslist.add(l);
                 }
                 adapter = new CommandesAdapter(commandeslist);
