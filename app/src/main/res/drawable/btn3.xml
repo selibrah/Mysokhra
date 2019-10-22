@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
 
-                <corners android:radius="6dp" />
-                <gradient android:type="linear" android:useLevel="false" android:startColor="@color/colorPrimary" android:endColor="#F18704" android:angle="0" />
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-</shape>
+        <corners android:radius="300dp"/>
+        <gradient android:type="linear" android:useLevel="false" android:startColor="#FFFFFF" android:endColor="#FFFFFF" android:angle="0" />
+
+    </shape>
+</item>
+<item
+    android:drawable="@drawable/foodmen">
+    <corners android:radius="300dp"/>
+</item>
+</layer-list>
