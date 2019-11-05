@@ -44,7 +44,7 @@ public class KindAdapter extends RecyclerView.Adapter<KindAdapter.KindHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull KindAdapter.KindHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final KindAdapter.KindHolder holder, int position) {
         final Kind kindi = kind.get(position);
 
         Picasso mPicasso = Picasso.get();
@@ -58,7 +58,9 @@ public class KindAdapter extends RecyclerView.Adapter<KindAdapter.KindHolder>{
                 .into(holder.kindImg);
         holder.kindname.setText(kindi.name);
         holder.kindprice.setText(kindi.prix+" Dh");
-        holder.plus.setImageResource(R.drawable.addddd);
+        if(kindi.nbr == 0) {
+            holder.plus.setImageResource(R.drawable.add_to_shopping);
+        }
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("usersData");
@@ -74,7 +76,9 @@ public class KindAdapter extends RecyclerView.Adapter<KindAdapter.KindHolder>{
                     mDatabase.child(user.getUid()).child("Cartitem").child("items").child(kindi.name).child("menu").setValue(Mycmd.menuname);
 
                 }
-               mDatabase.child(user.getUid()).child("Cartitem").child("items").child(kindi.name).child("nbr").setValue(++kindi.nbr);
+                holder.plus.setImageResource(R.drawable.checked);
+                kindi.nbr = 1;
+                mDatabase.child(user.getUid()).child("Cartitem").child("items").child(kindi.name).child("nbr").setValue(1);
                 notifyDataSetChanged();
 
             }

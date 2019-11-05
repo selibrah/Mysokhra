@@ -2,6 +2,7 @@ package com.my_sokhra.selibrah.mysokhra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,8 +52,6 @@ public class CartList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Carttotal = (TextView) findViewById(R.id.carttt);
         totalprice = (TextView) findViewById(R.id.total);
@@ -62,6 +61,20 @@ public class CartList extends AppCompatActivity {
         uDatabase = gDatabase.child(user.getUid());
         jDatabase = uDatabase.child("Cartitem");
         mDatabase = jDatabase.child("items");
+        findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), profActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        findViewById(R.id.rtrn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         // set up the RecyclerView

@@ -52,7 +52,7 @@ public class PhoneLogin extends AppCompatActivity {
         findViewById(R.id.verif).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhoneLogin.this, Main.class);
+                Intent intent = new Intent(PhoneLogin.this, profActivity.class);
                 startActivity(intent);
             }
         });
@@ -151,7 +151,7 @@ public class PhoneLogin extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             FirebaseUser user = mAuth.getCurrentUser();
                             mDatabase.child(uid).child("num").setValue(user.getPhoneNumber());
-                            Intent intent = new Intent(PhoneLogin.this, Main.class);
+                            Intent intent = new Intent(PhoneLogin.this, profActivity.class);
                             startActivity(intent);
                             finish();
                           //  Toast.makeText(PhoneLogin.this,credential.getProvider(), Toast.LENGTH_SHORT).show();

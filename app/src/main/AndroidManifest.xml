@@ -18,7 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AllCommands"></activity>
+        <activity
+            android:name=".profActivity"
+            android:label="@string/title_activity_prof"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".AllCommands" />
         <activity android:name=".MyCommandes" />
         <activity android:name=".Mycmd" />
         <activity android:name=".MenuList" />
@@ -34,7 +39,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".PhoneLogin" />
-        <activity android:name=".Main" />
         <activity android:name=".RestoLis" />
         <activity android:name=".CartList" />
         <activity
@@ -44,7 +48,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>
